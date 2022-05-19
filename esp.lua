@@ -132,14 +132,20 @@ function module.newGroup(settings)
 
         box.Highlight = highlight
 
+        local adornee = nil
+
         if typeof(box.primarypart) == "Instance" and box.primarypart.Parent then 
             if box.primarypart.Parent:IsA("Model") then 
-                box.Highlight.Adornee = box.primarypart.Parent
+                adornee = box.primarypart.Parent
             else 
-                box.Highlight.Adornee = box.primarypart 
+                adornee = box.primarypart 
             end 
         elseif typeof(box.primarypart) == "Instance" then 
-            box.Highlight.Adornee = box.primarypart
+            adornee = box.primarypart
+        end 
+
+        if adornee then 
+            box.Highlight.Parent = adornee
         end 
 
         for i,v in pairs(props) do 
