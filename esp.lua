@@ -66,6 +66,8 @@ function module.new(settings)
     default.overrides = {}
     default.offset = CFrame.new(0,-.25,0)
     default.chams = false
+    default.outlineTransparency = 0
+    default.fillTransparency = 0
 
     --// override functions: customColor, customVisible, customText, customFilter
 
@@ -107,7 +109,7 @@ function module.newGroup(settings)
 
             wait()
 
-            highlight:Destroy()
+            box.Highlight:Destroy()
 
             for i,v in pairs(box.Objects) do
                 v.Visible = false
@@ -184,6 +186,8 @@ function module.newGroup(settings)
     end 
 
     function functions.editSetting(setting,value,applytoAll)
+        print(setting,value)
+
         if setting == "visible" then 
             settings.groupEnabled = value 
 
@@ -191,6 +195,8 @@ function module.newGroup(settings)
                 wait()
 
                 for i,v in pairs(settings.espObjects) do 
+                    v.Highlight.Enabled = false
+
                     for _,esp in pairs(v.Objects) do 
                         esp.Visible = false
                     end 
@@ -322,6 +328,8 @@ local function runGroup(group)
             if (v.primarypart.Position - funcs.GetPrimaryPart(funcs.GetChar(game:GetService("Players").LocalPlayer)).Position).magnitude < group.distance then 
                 group.cache[i] = v 
             else 
+                v.Highlight.Enabled = false
+
                 for i,v in pairs(v.Objects) do
                     v.Visible = false
                 end
@@ -435,7 +443,11 @@ local function runGroup(group)
             continue
         end
 
-        v.Highlight = true
+        if group.chams then 
+            v.Highlight.Enabled = true
+        else 
+            v.Highlight.Enabled = false
+        end
         
         local cf = v.primarypart.CFrame
                 
@@ -463,6 +475,18 @@ local function runGroup(group)
     
         if group.CustomColor then
             clr = group.CustomColor(v.primarypart,v)
+        end 
+
+        if group.outlineTransparency then 
+            if group.outlineTransparency ~= 0 then 
+                print("outline transparency: ",group.outlineTransparency)
+            end
+            
+            v.Highlight.OutlineTransparency = group.outlineTransparency
+        end 
+
+        if group.fillTransparency then 
+            v.Highlight.FillTransparency = group.fillTransparency
         end 
 
         v.Highlight.FillColor = clr 
@@ -501,9 +525,15 @@ end
 
 local crnt = tick()
 
+local refresh = 60
+
+module.setRefresh = function(a)
+    refresh = a
+end 
+
 game:GetService("RunService").RenderStepped:Connect(function(dt)
     -- base refresh rate is 60
-    if tick() - crnt > (1/60) then 
+    if tick() - crnt > (1/refresh) then 
         crnt = tick()
         local count = 0
 
