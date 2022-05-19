@@ -65,6 +65,7 @@ function module.new(settings)
     default.color = Color3.fromRGB(255,255,255)
     default.overrides = {}
     default.offset = CFrame.new(0,-.25,0)
+    default.chams = false
 
     --// override functions: customColor, customVisible, customText, customFilter
 
@@ -106,6 +107,8 @@ function module.newGroup(settings)
 
             wait()
 
+            highlight:Destroy()
+
             for i,v in pairs(box.Objects) do
                 v.Visible = false
                 v.Transparency = 0
@@ -119,6 +122,13 @@ function module.newGroup(settings)
             Objects = {},
         }, objectFuncs)
     
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = game.CoreGui
+
+        box.Highlight = highlight
+
+        highlight.Adornee = box.primarypart.Parent
+
         for i,v in pairs(props) do 
             box[i] = v
         end 
@@ -391,6 +401,8 @@ local function runGroup(group)
         if funcs.GetChar(game:GetService("Players").LocalPlayer) == nil then   
             if v.Objects == nil then return end 
             
+            v.Highlight.Enabled = false
+
             for i,v in pairs(v.Objects) do 
                 v.Visible = false   
             end 
@@ -418,8 +430,12 @@ local function runGroup(group)
                 v.Visible = false
             end
 
+            v.Highlight.Enabled = false
+
             continue
         end
+
+        v.Highlight = true
         
         local cf = v.primarypart.CFrame
                 
@@ -448,6 +464,9 @@ local function runGroup(group)
         if group.CustomColor then
             clr = group.CustomColor(v.primarypart,v)
         end 
+
+        v.Highlight.FillColor = clr 
+        v.Highlight.OutlineColor = clr
 
         v.color = clr
 
