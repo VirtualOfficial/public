@@ -340,7 +340,7 @@ local function runGroup(group)
         group.lastCache = tick()
 
         for i,v in pairs(group.espObjects) do 
-            if v.primarypart == nil or v.primarypart.Parent == nil or v.primarypart.Parent.Parent == nil then 
+            if typeof(v.primarypart) ~= "Instance" or v.primarypart == nil or v.primarypart.Parent == nil or v.primarypart.Parent.Parent == nil then 
                 group.espObjects[i]:Remove()
                 group.espObjects[i] = nil 
                 continue
