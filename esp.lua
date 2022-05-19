@@ -132,7 +132,10 @@ function module.newGroup(settings)
 
         box.Highlight = highlight
 
-        if box.primarypart.Parent then 
+
+        print(box.primarypart)
+
+        if typeof(box.primarypart) == "Instance" and box.primarypart.Parent then 
             if box.primarypart.Parent:IsA("Model") then 
                 print("Setting as model:",box.primarypart.Parent)
                 box.Highlight.Adornee = box.primarypart.Parent
