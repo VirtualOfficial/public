@@ -132,19 +132,13 @@ function module.newGroup(settings)
 
         box.Highlight = highlight
 
-
-        print(box.primarypart)
-
         if typeof(box.primarypart) == "Instance" and box.primarypart.Parent then 
             if box.primarypart.Parent:IsA("Model") then 
-                print("Setting as model:",box.primarypart.Parent)
                 box.Highlight.Adornee = box.primarypart.Parent
             else 
-                print("Setting as primary part (1):",box.primarypart)
-                box.Highlight.Adornee = box.primarypart
+                box.Highlight.Adornee = box.primarypart 
             end 
         elseif typeof(box.primarypart) == "Instance" then 
-            print("Setting as primary part (2):",box.primarypart)
             box.Highlight.Adornee = box.primarypart
         end 
 
@@ -203,8 +197,6 @@ function module.newGroup(settings)
     end 
 
     function functions.editSetting(setting,value,applytoAll)
-        print(setting,value)
-
         if setting == "visible" then 
             settings.groupEnabled = value 
 
