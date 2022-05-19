@@ -125,6 +125,7 @@ function module.newGroup(settings)
         }, objectFuncs)
     
         local highlight = Instance.new("Highlight")
+        highlight.Enabled = false
         highlight.Parent = game.CoreGui
 
         box.Highlight = highlight
