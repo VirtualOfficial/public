@@ -127,16 +127,21 @@ function module.newGroup(settings)
         local highlight = Instance.new("Highlight")
         highlight.Enabled = false
         highlight.Parent = game.CoreGui
+        highlight.FillTransparency = 1
+        highlight.OutlineTransparency = 1
 
         box.Highlight = highlight
 
         if box.primarypart.Parent then 
             if box.primarypart.Parent:IsA("Model") then 
+                print("Setting as model:",box.primarypart.Parent)
                 box.Highlight.Adornee = box.primarypart.Parent
             else 
+                print("Setting as primary part (1):",box.primarypart)
                 box.Highlight.Adornee = box.primarypart
             end 
         else 
+            print("Setting as primary part (2):",box.primarypart)
             box.Highlight.Adornee = box.primarypart
         end 
 
@@ -487,10 +492,6 @@ local function runGroup(group)
         end 
 
         if group.outlineTransparency then 
-            if group.outlineTransparency ~= 0 then 
-                print("outline transparency: ",group.outlineTransparency)
-            end
-            
             v.Highlight.OutlineTransparency = group.outlineTransparency
         end 
 
