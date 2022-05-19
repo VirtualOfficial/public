@@ -130,7 +130,15 @@ function module.newGroup(settings)
 
         box.Highlight = highlight
 
-        highlight.Adornee = box.primarypart.Parent
+        if box.primarypart.Parent then 
+            if box.primarypart.Parent:IsA("Model") then 
+                box.Highlight.Adornee = box.primarypart.Parent
+            else 
+                box.Highlight.Adornee = box.primarypart
+            end 
+        else 
+            box.Highlight.Adornee = box.primarypart
+        end 
 
         for i,v in pairs(props) do 
             box[i] = v
