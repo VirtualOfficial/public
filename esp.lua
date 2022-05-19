@@ -109,7 +109,9 @@ function module.newGroup(settings)
 
             wait()
 
-            box.Highlight:Destroy()
+            if box.Highlight and settings.useChams then 
+                box.Highlight:Destroy()
+            end
 
             for i,v in pairs(box.Objects) do
                 v.Visible = false
@@ -124,29 +126,33 @@ function module.newGroup(settings)
             Objects = {},
         }, objectFuncs)
     
-        local highlight = Instance.new("Highlight")
-        highlight.Enabled = false
-        highlight.Parent = game.CoreGui
-        highlight.FillTransparency = 1
-        highlight.OutlineTransparency = 1
+        if settings.useChams then 
+            local highlight = Instance.new("Highlight")
+            highlight.Enabled = false
+            highlight.Parent = game.CoreGui
+            highlight.FillTransparency = 1
+            highlight.OutlineTransparency = 1
 
-        box.Highlight = highlight
+            box.Highlight = highlight
 
-        local adornee = nil
+            local adornee = nil
 
-        if typeof(box.primarypart) == "Instance" and box.primarypart.Parent then 
-            if box.primarypart.Parent:IsA("Model") then 
-                adornee = box.primarypart.Parent
-            else 
-                adornee = box.primarypart 
+            if typeof(box.primarypart) == "Instance" and box.primarypart.Parent then 
+                if box.primarypart.Parent:IsA("Model") then 
+                    adornee = box.primarypart.Parent
+                else 
+                    adornee = box.primarypart 
+                end 
+            elseif typeof(box.primarypart) == "Instance" then 
+                adornee = box.primarypart
             end 
-        elseif typeof(box.primarypart) == "Instance" then 
-            adornee = box.primarypart
-        end 
 
-        if adornee then 
-            box.Highlight.Parent = adornee
-        end 
+            if adornee then 
+                box.Highlight.Parent = adornee
+            end 
+        else 
+            box.Highlight = {}
+        end
 
         for i,v in pairs(props) do 
             box[i] = v
