@@ -143,7 +143,7 @@ function module.newGroup(settings)
                 print("Setting as primary part (1):",box.primarypart)
                 box.Highlight.Adornee = box.primarypart
             end 
-        else 
+        elseif typeof(box.primarypart) == "Instance" then 
             print("Setting as primary part (2):",box.primarypart)
             box.Highlight.Adornee = box.primarypart
         end 
