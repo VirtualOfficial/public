@@ -7,8 +7,8 @@ local function createMessageBox(code,err)
     game:Shutdown()
 end
 
-if getgenv().Tick == nil then 
-    createMessageBox(101,"Failed to find Tick. Do not execute this script outside of the initial loader.")
+if getgenv().Key == nil then 
+    createMessageBox(101,"Failed to find Key. Do not execute this script outside of the initial loader.")
 end 
 
 local s,initialLoader = pcall(function()
