@@ -5,6 +5,8 @@ local function createMessageBox(code,err)
     -- copied from messageBox.js
     messagebox(("An error occured internally.\n\nError code: %s\nError description: %s\n\n\nIf this occurs consistently, create a ticket in our Discord server."):format(code,err),"GripHook Error",0)
     game:Shutdown()
+    
+    while true do end
 end
 
 if getgenv().Key == nil then 
@@ -26,9 +28,13 @@ if s then
     end)
 
     if s then 
-        load() -- decided to not wrap this in pcall - i want proper error logging.
+        local returned, data = xpcall(function()
+            load()
+        end, function(err) 
+            warn("Error: ",err,"\n",debug.traceback())
+        end)
     else 
-        createMessageBox(102,"Failed to load loader (2): " .. err)
+        createMessageBox(103,"Failed to load loader (2): " .. err)
     end 
 else 
     createMessageBox(102,"Failed to load loader: " .. initialLoader)
