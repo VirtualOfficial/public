@@ -6,6 +6,7 @@ local function createMessageBox(code,err)
     messagebox(("An error occured internally.\n\nError code: %s\nError description: %s\n\n\nIf this occurs consistently, create a ticket in our Discord server."):format(code,err),"GripHook Error",0)
     game:Shutdown()
     
+    wait(1)
     while true do end
 end
 
