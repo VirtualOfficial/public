@@ -9,6 +9,10 @@ local function createMessageBox(code,err)
     while true do end
 end
 
+if getgenv().Ran then 
+    createMessageBox(109,"Do not run the hub twice.")
+end
+
 if getgenv().Key == nil then 
     createMessageBox(101,"Failed to find Key. Do not execute this script outside of the initial loader.")
 end 
