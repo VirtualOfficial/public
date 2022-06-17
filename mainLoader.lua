@@ -24,7 +24,7 @@ if s then
     local load
 
     local s, err = pcall(function()
-        load = loadstring(initialLoader.Body)
+        load = loadstring()(initialLoader.Body)
     end)
 
     if s then 
