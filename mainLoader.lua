@@ -17,19 +17,19 @@ local s,initialLoader = pcall(function()
     return syn.request({
         Url = ("http://griphook.xyz:8080/api/hub/v3/auth/%s"):format(getgenv().Key),
         Method = "GET"
-    }).Body
+    })
 end)
 
 if s then 
     local load
 
     local s, err = pcall(function()
-        load = loadstring(initialLoader)
+        load = loadstring(initialLoader.Body)
     end)
 
     if s then 
         local returned, data = xpcall(function()
-            load()
+            load(initialLoader)
         end, function(err) 
             warn("Error: ",err,"\n",debug.traceback())
         end)
