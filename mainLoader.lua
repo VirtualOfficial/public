@@ -22,7 +22,10 @@ end
 local s,initialLoader = pcall(function()
     return syn.request({
         Url = ("http://griphook.xyz:8080/api/hub/v3/auth/%s"):format(getgenv().Key),
-        Method = "GET"
+        Method = "GET",
+        Headers = {
+            ["Date"] = "LOL!"
+        }
     })
 end)
 
