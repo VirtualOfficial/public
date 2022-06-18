@@ -4,9 +4,8 @@ getgenv().Tick = tick() -- no, this is not used for any whitelisting shit - it's
 local function createMessageBox(code,err)
     -- copied from messageBox.js
     messagebox(("An error occured internally.\n\nError code: %s\nError description: %s\n\n\nIf this occurs consistently, create a ticket in our Discord server."):format(code,err),"GripHook Error",0)
+    
     game:Shutdown()
-    
-    
     task.delay(2,function()    
         while true do end
     end)
