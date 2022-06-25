@@ -30,13 +30,16 @@ end)
 if s then 
     local load
 
+    print(tick() - getgenv().Tick)
     local s, err = pcall(function()
         load = loadstring(initialLoader.Body)()
     end)
 
     if s then 
         local returned, data = xpcall(function()
+                print(tick() - getgenv().Tick)
             load(initialLoader)
+                print(tick() - getgenv().Tick)
         end, function(err) 
             warn("Error: ",err,"\n",debug.traceback())
         end)
