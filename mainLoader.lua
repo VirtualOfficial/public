@@ -1,4 +1,5 @@
 -- todo: obfuscate
+print("running")
 getgenv().Tick = tick() -- no, this is not used for any whitelisting shit - it's exclusively to check how long the script took to load so don't even try
 
 local function createMessageBox(code,err)
