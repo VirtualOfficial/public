@@ -1,0 +1,4 @@
+1. http://griphook.xyz:8080/file/secretlinkhydrawontguesssoicantrollhim.rar (or file in repo, but ill upload any changes ot that url so only use github repo if link is down)
+2. install forge 1.18.2
+3. empty all folders in ur .minecraft folder
+4. profit
